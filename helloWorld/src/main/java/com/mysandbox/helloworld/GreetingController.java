@@ -20,18 +20,18 @@ public class GreetingController {
 
     @GetMapping("/greet-all")
     public List<Greeting> greetAll(@RequestParam(value="name", defaultValue="Everybody") String name){
-        List<String> namesList = new ArrayList<String>(){{
-            add("Shawn");
-            add("Gus");
-            add("Jules");
-            add("Lassy");
-            add("Woody");
-            add("Chief Vic");
-            add("McNab");
-            add("Mr Yin");
-            add("Mr Yang");
-            add("Mary");
-        }};
+        List<String> namesList = List.of(
+            "Shawn",
+            "Gus",
+            "Jules",
+            "Lassy",
+            "Woody",
+            "Chief Vic",
+            "McNab",
+            "Mr Yin",
+            "Mr Yang",
+            "Mary"
+        );
         List<Greeting> greetingsList = new ArrayList<Greeting>();
         namesList.stream().forEach(item -> {
             Greeting tempGreeting = new Greeting(counter.incrementAndGet(), String.format(template, item));
