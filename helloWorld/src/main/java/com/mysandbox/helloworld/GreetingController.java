@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController {
     private static final String template = "Hello, %s!";
+    private static final String derogatoryTemplate = "Suck it, %s!";
     private final AtomicLong counter = new AtomicLong();
 
     @GetMapping("/greeting")
@@ -32,10 +33,11 @@ public class GreetingController {
             "Mr Yin",
             "Mr Yang",
             "Mary",
+            "Henry",
             name
         )
         .map((String item) -> {
-            return new Greeting(counter.incrementAndGet(), String.format(template, item));
+            return new Greeting(counter.incrementAndGet(), String.format(item=="Henry" ? derogatoryTemplate : template, item));
         })
         .collect(Collectors.toList());
         return greetingsList;
