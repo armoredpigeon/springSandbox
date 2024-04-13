@@ -1,7 +1,8 @@
 package com.mysandbox.helloworld;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class GreetingController {
 
     @GetMapping("/greet-all")
     public List<Greeting> greetAll(@RequestParam(value="name", defaultValue="Everybody") String name){
-        List<String> namesList = List.of(
+        List<Greeting> greetingsList = Stream.of(
             "Shawn",
             "Gus",
             "Jules",
@@ -30,14 +31,13 @@ public class GreetingController {
             "McNab",
             "Mr Yin",
             "Mr Yang",
-            "Mary"
-        );
-        List<Greeting> greetingsList = new ArrayList<Greeting>();
-        namesList.stream().forEach(item -> {
-            Greeting tempGreeting = new Greeting(counter.incrementAndGet(), String.format(template, item));
-            greetingsList.add(tempGreeting);
-        });
-        greetingsList.add(new Greeting(counter.incrementAndGet(), String.format(template, name)));
+            "Mary",
+            name
+        )
+        .map((String item) -> {
+            return new Greeting(counter.incrementAndGet(), String.format(template, item));
+        })
+        .collect(Collectors.toList());
         return greetingsList;
     }
 }
