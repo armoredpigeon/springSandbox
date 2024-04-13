@@ -23,26 +23,20 @@ public class GreetingController {
 
     @GetMapping("/greet-all")
     public List<Greeting> greetAll(@RequestParam(value="name", defaultValue="Everybody") String name){
-        List<Greeting> greetingsList = Map.ofEntries(
-            Map.entry(7L, "Shawn"),
-            Map.entry(54L, "Gus"),
-            Map.entry(34L, "Jules"),
-            Map.entry(48L, "Lassy"),
-            Map.entry(32L, "Woody"),
-            Map.entry(42L, "Chief Vic"),
-            Map.entry(16L, "McNab"),
-            Map.entry(64L, "Mr Yin"),
-            Map.entry(128L, "Mr Yang"),
-            Map.entry(256L, "Mary"),
-            Map.entry(512L, "Henry"),
-            Map.entry(1024L, name)
-        ).entrySet().stream()
-        .map((Map.Entry item) -> {
-            var givenKey = (long) item.getKey();
-            var givenVal = item.getValue();
-            return new Greeting(givenKey, String.format(givenVal=="Henry" ? derogatoryTemplate : template, givenVal));
-        })
-        .collect(Collectors.toList());
+        List<Greeting> greetingsList = List.of(
+            new Greeting(7L, String.format(template,"Shawn")),
+           new Greeting(54L, String.format(template, "Gus")),
+           new Greeting(34L, String.format(template, "Jules")),
+           new Greeting(48L, String.format(template, "Lassy")),
+           new Greeting(32L, String.format(template, "Woody")),
+           new Greeting(42L, String.format(template, "Chief Vic")),
+           new Greeting(16L, String.format(template, "McNab")),
+           new Greeting(64L, String.format(template, "Mr Yin")),
+           new Greeting(128L, String.format(template, "Mr Yang")),
+           new Greeting(256L, String.format(template, "Mary")),
+           new Greeting(512L, String.format(derogatoryTemplate, "Henry")),
+           new Greeting(1024L, String.format(template, name))
+        );
         return greetingsList;
     }
 }
