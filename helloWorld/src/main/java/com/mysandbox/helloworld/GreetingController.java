@@ -32,10 +32,6 @@ public class GreetingController {
         new Greeting(512L, String.format(derogatoryTemplate, "Henry"))
     );
 
-    public void AddGreeting(Greeting greeting){
-        greetingsList.add(greeting);
-    }
-
     @GetMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
